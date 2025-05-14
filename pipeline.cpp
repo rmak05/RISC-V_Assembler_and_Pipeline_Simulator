@@ -13,7 +13,7 @@
 #define MARGIN 10
 #define TIME_DELAY 500
 
-bool simulate   = false;
+bool display    = false;
 bool automatic  = true;
 
 vector<int> inst_nums;
@@ -522,7 +522,7 @@ void print_pipes(vector<int> num){
     system("cls");
     // system("clear");
 
-    if(!simulate) return;
+    if(!display) return;
 
     print_margin(20);
     for(int i=0;i<5;i++){
@@ -600,10 +600,10 @@ void run_pipeline(){
     print_pipes(inst_nums);
     cout<<"Clock Cycles : "<<cycle<<"\n";
     cout<<"Instructions : "<<inst_count<<"\n\n";
-    if(simulate && automatic) Sleep(TIME_DELAY);
+    if(display && automatic) Sleep(TIME_DELAY);
 
     while(true){
-        if(simulate && (!automatic)) system("pause");
+        if(display && (!automatic)) system("pause");
 
         check=vector<bool>(5,false);
         check[4]=writeback(_pipe_MOWB);
@@ -620,14 +620,14 @@ void run_pipeline(){
         print_pipes(inst_nums);
         cout<<"Clock Cycles : "<<cycle<<"\n";
         cout<<"Instructions : "<<inst_count<<"\n\n";
-        if(simulate && automatic) Sleep(TIME_DELAY);
+        if(display && automatic) Sleep(TIME_DELAY);
     }
 
     print_pipes(inst_nums);
     cout<<"Clock Cycles : "<<cycle<<"\n";
     cout<<"Instructions : "<<inst_count<<"\n";
     cout<<"IPC          : "<<((float)inst_count)/((float)cycle)<<"\n\n";
-    if(simulate && automatic) Sleep(TIME_DELAY);
+    if(display && automatic) Sleep(TIME_DELAY);
 
     ofstream stats_file("Output\\statistics.txt");
 

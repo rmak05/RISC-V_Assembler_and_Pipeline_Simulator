@@ -3,8 +3,8 @@
 
 int main(int argc, char **argv){
     if(argc >= 2){
-        if(strcmp(argv[1], "simulate") == 0){
-            simulate = true;
+        if(strcmp(argv[1], "display") == 0){
+            display = true;
 
             if(argc >= 3){
                 if(strcmp(argv[2], "automatic") == 0){
