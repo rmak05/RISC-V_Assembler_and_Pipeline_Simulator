@@ -10,4 +10,4 @@ comments.txt
 *.exe
 
 # output binary files
-# Output/*
+Output/*
