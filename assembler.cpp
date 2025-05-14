@@ -355,8 +355,8 @@ void convert_to_binary(){
     reg_map["t6"]=reg_map["x31"]=31;
     
     int line_number=0;
-    const char *input_file_name="assembly_file.s";
-    const char *output_file_name="binary_file.o";
+    const char *input_file_name="Input\\assembly_file.s";
+    const char *output_file_name="Output\\binary_file.txt";
     fstream input_file,output_file;
 
     input_file.open(input_file_name,ios::in);
@@ -454,7 +454,6 @@ void convert_to_binary(){
             int imm;
             if(is_num(components[3])) imm=string_to_decimal(components[3]);
             else imm=(labels[original_components[3]]-line_number)<<2;
-            // else imm=(labels[original_components[3]])<<2;
             b_type inst;
             inst.set_opcode((int)inst_type::b);
             inst.set_rs1(reg_map[components[1]]);
@@ -476,7 +475,6 @@ void convert_to_binary(){
             int imm;
             if(is_num(components[2])) imm=string_to_decimal(components[2]);
             else imm=(labels[original_components[2]]-line_number)<<2;
-            // else imm=(labels[original_components[2]])<<2;
             j_type inst;
             inst.set_opcode((int)inst_type::j);
             inst.set_rd(reg_map[components[1]]);

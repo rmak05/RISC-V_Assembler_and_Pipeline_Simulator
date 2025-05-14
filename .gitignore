@@ -1,0 +1,13 @@
+# vscode generated files
+.vscode/
+
+# demo files
+Demo/
+demo.cpp
+comments.txt
+
+# executable files
+*.exe
+
+# output binary files
+Output/*

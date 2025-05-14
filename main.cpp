@@ -1,0 +1,24 @@
+#include "pipeline.cpp"
+#include <cstring>
+
+int main(int argc, char **argv){
+    if(argc >= 2){
+        if(strcmp(argv[1], "simulate") == 0){
+            simulate = true;
+
+            if(argc >= 3){
+                if(strcmp(argv[2], "automatic") == 0){
+                    automatic = true;
+                }
+                else if(strcmp(argv[2], "manual") == 0){
+                    automatic = false;
+                }
+            }
+        }
+    }
+
+    convert_to_binary();
+    run_pipeline();
+
+    return 0;
+}

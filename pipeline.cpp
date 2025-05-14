@@ -1,7 +1,5 @@
-#include <bits/stdc++.h>
 #include <windows.h>
 #include "assembler.cpp"
-using namespace std;
 
 #define REG_MEM_SIZE 32
 #define DATA_MEM_SIZE 1024
@@ -13,7 +11,10 @@ using namespace std;
 #define HOR (char)205
 #define VER (char)186
 #define MARGIN 10
-#define TIME_DELAY 100
+#define TIME_DELAY 500
+
+bool simulate   = false;
+bool automatic  = true;
 
 vector<int> inst_nums;
 
@@ -29,17 +30,6 @@ struct pipe_MOWB;
 int reg_mem[REG_MEM_SIZE];
 int reg_stall[REG_MEM_SIZE];
 int data_mem[DATA_MEM_SIZE];
-
-// enum class inst_type{
-//     r       = 0x33,
-//     i1      = 0x13,
-//     i2      = 0x03,
-//     i3      = 0x67,
-//     s       = 0x23,
-//     b       = 0x63,
-//     j       = 0x6f,
-//     u       = 0x37
-// };
 
 int get_bits_in_range(int val, int start, int end){
     if(start>end) swap(start,end);
@@ -427,17 +417,11 @@ void initialise_mem(){
 
 vector<int> process_binary_file(){
     vector<int> inst_mem;
-    // const char* instructions[]={
-    //      "00000000000000000000000000000000"
-    // };
-
-    // int n=sizeof(instructions)/sizeof(char*);
     int n=inst_vector.size();
     for(int i=0;i<n;i++){
         char temp_str[33];
         for(int j=0;j<33;j++) temp_str[j]=inst_vector[i][j];
         inst_mem.push_back(binary_to_decimal(temp_str));
-        // inst_mem.push_back(binary_to_decimal(instructions[i]));
     }
     return inst_mem;
 }
@@ -496,24 +480,27 @@ void initialise_maps(unordered_map<string,int>& func3_map, unordered_map<string,
 }
 
 void print_data(){
-    cout<<"Register Memory -\n\n";
+    ofstream memory_file("Output\\memory.txt");
+
+    memory_file<<"Register Memory -\n\n";
     for(int i=0;i<REG_MEM_SIZE;i++){
-        if(i<10) cout<<" x"<<i<<" : "<<reg_mem[i]<<"\n";
-        else cout<<"x"<<i<<" : "<<reg_mem[i]<<"\n";
+        if(i<10) memory_file<<" x"<<i<<" : "<<reg_mem[i]<<"\n";
+        else memory_file<<"x"<<i<<" : "<<reg_mem[i]<<"\n";
     }
-    cout<<"\n";
-    cout<<"Data Memory -\n\n";
+    memory_file<<"\n";
+    memory_file<<"Data Memory -\n\n";
     for(int i=0;i<50;i++){
         int di=i*4;
-        cout<<"0x";
-        cout.setf(ios::hex,ios::basefield);
-        cout.width(8);
-        cout.fill('0');
-        cout<<di;
-        cout.unsetf(ios::hex);
-        cout<<" : "<<data_mem[i]<<"\n";
+        memory_file<<"0x";
+        memory_file.setf(ios::hex,ios::basefield);
+        memory_file.width(8);
+        memory_file.fill('0');
+        memory_file<<di;
+        memory_file.unsetf(ios::hex);
+        memory_file<<" : "<<data_mem[i]<<"\n";
     }
-    cout<<"\n";
+
+    memory_file.close();
 }
 
 void print_num(int n){
@@ -533,6 +520,10 @@ void print_margin(int n){
 
 void print_pipes(vector<int> num){
     system("cls");
+    // system("clear");
+
+    if(!simulate) return;
+
     print_margin(20);
     for(int i=0;i<5;i++){
         cout<<TL<<HOR<<HOR<<HOR<<HOR<<HOR<<TR;
@@ -609,10 +600,10 @@ void run_pipeline(){
     print_pipes(inst_nums);
     cout<<"Clock Cycles : "<<cycle<<"\n";
     cout<<"Instructions : "<<inst_count<<"\n\n";
-    // Sleep(TIME_DELAY);
+    if(simulate && automatic) Sleep(TIME_DELAY);
 
     while(true){
-        // system("pause");
+        if(simulate && (!automatic)) system("pause");
 
         check=vector<bool>(5,false);
         check[4]=writeback(_pipe_MOWB);
@@ -629,30 +620,28 @@ void run_pipeline(){
         print_pipes(inst_nums);
         cout<<"Clock Cycles : "<<cycle<<"\n";
         cout<<"Instructions : "<<inst_count<<"\n\n";
-        // Sleep(TIME_DELAY);
+        if(simulate && automatic) Sleep(TIME_DELAY);
     }
 
     print_pipes(inst_nums);
     cout<<"Clock Cycles : "<<cycle<<"\n";
     cout<<"Instructions : "<<inst_count<<"\n";
     cout<<"IPC          : "<<((float)inst_count)/((float)cycle)<<"\n\n";
-    // Sleep(TIME_DELAY);
+    if(simulate && automatic) Sleep(TIME_DELAY);
+
+    ofstream stats_file("Output\\statistics.txt");
+
+    stats_file<<"Clock Cycles : "<<cycle<<"\n";
+    stats_file<<"Instructions : "<<inst_count<<"\n";
+    stats_file<<"IPC          : "<<((float)inst_count)/((float)cycle)<<"\n";
+
+    stats_file.close();
 
     print_data();
 }
 
-int main(){
-    convert_to_binary();
-    run_pipeline();
-    return 0;
-}
-
-// while writing jalr remember that syntax is different in different platform
-// remove stall for x0
-// add u type instruction
-// change rd to rdl
-// rd = reg_mem[rd]  , rdl = rd register number
-// consider byte addressable also (lb, sb)
-// since I recently changed jump/branch offset, please run some codes
-// for slli, srli, srai check imm also , this comment is on line 330
-// mention in comment the syntax for jalr
+// int main(){
+//     convert_to_binary();
+//     run_pipeline();
+//     return 0;
+// }
