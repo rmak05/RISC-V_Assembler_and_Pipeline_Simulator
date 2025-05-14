@@ -8,6 +8,3 @@ comments.txt
 
 # executable files
 *.exe
-
-# output binary files
-Output/*
