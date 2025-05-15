@@ -344,13 +344,11 @@ bool execute(pipe_IDEX& _pipe_IDEX, pipe_EXMO& _pipe_EXMO, pipe_IF& _pipe_IF, un
         _pipe_IF.active=true;
         if(_pipe_IDEX.cw.ALUOp==(int)inst_type::i3) _pipe_IF.pc=((_pipe_IDEX.rs1+_pipe_IDEX.imm)>>2);
         else _pipe_IF.pc=_pipe_IDEX.dpc+(((_pipe_IDEX.imm)<<1)>>2);
-        // else _pipe_IF.pc=(((_pipe_IDEX.imm)<<1)>>2)-1;
         inst_nums[0]=_pipe_IF.pc+1;
     }
     else if(_pipe_IDEX.cw.Branch && ALUSignal){
         _pipe_IF.active=true;
         _pipe_IF.pc=_pipe_IDEX.dpc+(((_pipe_IDEX.imm)<<1)>>2);
-        // _pipe_IF.pc=(((_pipe_IDEX.imm)<<1)>>2)-1;
         inst_nums[0]=_pipe_IF.pc+1;
         return true;
     }

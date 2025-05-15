@@ -1,3 +1,5 @@
+# finds factorial of a number using recursion
+
 main:
 addi s1, zero, 3     # s1 -> n
 addi s1, s1, 1
