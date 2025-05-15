@@ -9,6 +9,10 @@ int main(int argc, char **argv){
             if(argc >= 3){
                 if(strcmp(argv[2], "automatic") == 0){
                     automatic = true;
+
+                    if(argc >= 4){
+                        time_delay = stoi(argv[3]);
+                    }
                 }
                 else if(strcmp(argv[2], "manual") == 0){
                     automatic = false;

@@ -109,10 +109,10 @@ for_loop :
     ./main.exe
     ```
 
-    To run the code with a display of simulation in automatic mode (automatically runs each clock cycle with a delay) :
+    To run the code with a display of simulation in automatic mode (automatically runs each clock cycle with a delay, delay must be an integer expressed in milliseconds) :
 
     ```bash
-    ./main.exe display automatic
+    ./main.exe display automatic 1000
     ```
 
     <img src="README_Images/automatic.png" alt="Image not found">

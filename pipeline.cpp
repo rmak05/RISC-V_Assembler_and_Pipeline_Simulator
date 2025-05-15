@@ -11,10 +11,10 @@
 #define HOR (char)205
 #define VER (char)186
 #define MARGIN 10
-#define TIME_DELAY 500
 
 bool display    = false;
 bool automatic  = true;
+unsigned long time_delay = 1000;
 
 vector<int> inst_nums;
 
@@ -598,7 +598,7 @@ void run_pipeline(){
     print_pipes(inst_nums);
     cout<<"Clock Cycles : "<<cycle<<"\n";
     cout<<"Instructions : "<<inst_count<<"\n\n";
-    if(display && automatic) Sleep(TIME_DELAY);
+    if(display && automatic) Sleep(time_delay);
 
     while(true){
         if(display && (!automatic)) system("pause");
@@ -618,14 +618,14 @@ void run_pipeline(){
         print_pipes(inst_nums);
         cout<<"Clock Cycles : "<<cycle<<"\n";
         cout<<"Instructions : "<<inst_count<<"\n\n";
-        if(display && automatic) Sleep(TIME_DELAY);
+        if(display && automatic) Sleep(time_delay);
     }
 
     print_pipes(inst_nums);
     cout<<"Clock Cycles : "<<cycle<<"\n";
     cout<<"Instructions : "<<inst_count<<"\n";
     cout<<"IPC          : "<<((float)inst_count)/((float)cycle)<<"\n\n";
-    if(display && automatic) Sleep(TIME_DELAY);
+    if(display && automatic) Sleep(time_delay);
 
     ofstream stats_file("Output\\statistics.txt");
 

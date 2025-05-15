@@ -1,0 +1,3 @@
+Clock Cycles : 102
+Instructions : 67
+IPC          : 0.656863
