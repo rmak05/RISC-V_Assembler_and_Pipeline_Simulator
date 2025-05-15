@@ -109,7 +109,7 @@ for_loop :
     ./main.exe
     ```
 
-    To run the code with a display of simulation in automatic mode :
+    To run the code with a display of simulation in automatic mode (automatically runs each clock cycle with a delay) :
 
     ```bash
     ./main.exe display automatic
@@ -117,7 +117,7 @@ for_loop :
 
     <img src="README_Images/automatic.png" alt="Image not found">
 
-    To run the code with a display of simulation in manual mode :
+    To run the code with a display of simulation in manual mode (will freeze after each clock cycle, press any key to continue) :
 
     ```bash
     ./main.exe display manual
