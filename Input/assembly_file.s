@@ -1,10 +1,10 @@
 # finds factorial of a number using recursion
 
 main:
-addi s1, zero, 3     # s1 -> n
+addi s1, zero, 3    # s1 <- n
 addi s1, s1, 1
 addi t0, zero, 1
-addi s2, zero, 1    # s2 -> ans
+addi s2, zero, 1    # s2 <- ans
 for1:
 bge t0, s1, for1_end
 add a0, zero, s2
