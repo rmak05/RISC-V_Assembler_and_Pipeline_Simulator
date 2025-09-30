@@ -75,7 +75,8 @@ addi x1, zero, -4       # x1 := -4
 - Hexadecimal immediate values
 
 ```bash
-addi x1, zero, 0x1a     # x1 := 26
+addi x1, zero, 0x19     # x1 := 25
+addi x1, zero, 0x7d5    # x1 := 2005
 ```
 
 - String labels
